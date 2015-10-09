@@ -29,6 +29,12 @@ namespace MvcPaging
 			return new Pager<TModel>(htmlHelper, pageSize, currentPage, totalItemCount).Options(o => o.AjaxOptions(ajaxOptions));
 		}
 
+        public static Pager<TModel> Pager<TModel>(this HtmlHelper<TModel> htmlHelper, int pageSize, int currentPage, int totalItemCount, string searchQuery, string sortColumn, string sortDirection, AjaxOptions ajaxOptions)
+        {
+            return new Pager<TModel>(htmlHelper, pageSize, currentPage, totalItemCount, searchQuery, sortColumn, sortDirection).Options(o => o.AjaxOptions(ajaxOptions));
+        }
+
+
 		#endregion
 
 		#region IQueryable<T> extensions

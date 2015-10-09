@@ -7,7 +7,8 @@ namespace MvcPaging
 	{
 		public int PageSize { get; internal set; }
 
-		public int CurrentPage { get; internal set; }
+        public int CurrentPage { get; internal set; }
+        public string SearchString { get; internal set; } 
 
 		public int PageCount { get; internal set; }
 
@@ -33,7 +34,10 @@ namespace MvcPaging
 
 		public bool IsCurrent { get; set; }
 
-		public int? PageIndex { get; set; }
+        public int? PageIndex { get; set; }
+        public string SearchString { get; set; }
+        public string SortColumn { get; set; }
+        public string SortDirection { get; set; }
 
 		public string DisplayText { get; set; }
 

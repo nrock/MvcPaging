@@ -9,8 +9,11 @@ namespace MvcPaging
 		{
 			public const int MaxNrOfPages = 10;
 			public const string DisplayTemplate = null;
-			public const bool AlwaysAddFirstPageNumber = false;
-			public const string DefaultPageRouteValueKey = "page";
+            public const bool AlwaysAddFirstPageNumber = false;
+            public const string DefaultPageRouteValueKey = "page";
+            public const string DefaultQueryRouteValueKey = "query";
+            public const string DefaultSortColumnRouteValueKey = "sortCol";
+            public const string DefaultSortDirectionRouteValueKey = "sortDir";
 			public const string PreviousPageText = "«";
 			public const string PreviousPageTitle = "Previous page";
 			public const string NextPageText = "»";
@@ -102,8 +105,8 @@ namespace MvcPaging
 			RouteValues = new RouteValueDictionary();
 			DisplayTemplate = Defaults.DisplayTemplate;
 			MaxNrOfPages = Defaults.MaxNrOfPages;
-			AlwaysAddFirstPageNumber = Defaults.AlwaysAddFirstPageNumber;
-			PageRouteValueKey = Defaults.DefaultPageRouteValueKey;
+            AlwaysAddFirstPageNumber = Defaults.AlwaysAddFirstPageNumber;
+            PageRouteValueKey = Defaults.DefaultPageRouteValueKey; 
 			PreviousPageText = DefaultDefaults.PreviousPageText;
 			PreviousPageTitle = DefaultDefaults.PreviousPageTitle;
 			NextPageText = DefaultDefaults.NextPageText;
