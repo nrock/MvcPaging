@@ -8,7 +8,8 @@ namespace MvcPaging
 		int TotalItemCount { get; }
 		int PageIndex { get; }
 		int PageNumber { get; }
-		int PageSize { get; }
+		int PageSize { get; } 
+        string SearchString { get; set; } 
 		bool HasPreviousPage { get; }
 		bool HasNextPage { get; }
 		bool IsFirstPage { get; }

@@ -70,12 +70,13 @@ namespace MvcPaging.Demo.Controllers
 			return View(products);
 		}
 
-		public ActionResult AjaxPage(int? page, string q)
+		public ActionResult AjaxPage(int? page, string search)
 		{
             Thread.Sleep(1500);
 			ViewBag.Title = "Browse all products";
-			int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-			var products = this.allProducts.ToPagedList(currentPageIndex, DefaultPageSize);
+            int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
+            var products = this.allProducts.Where(x => search == null || x.Name.ToLower().Contains(search)).ToPagedList(currentPageIndex, DefaultPageSize, null, search, null, null);
+            products.SearchString = search;
 			return PartialView("_ProductGrid", products);
 		}
 

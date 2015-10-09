@@ -6,12 +6,23 @@ namespace MvcPaging
 {
 	public class PagedList<T> : List<T>, IPagedList<T>
 	{
+
+        /*, string searchQuery = null, string sortColumn = null, string sortDirection = null*/
+        public PagedList(IEnumerable<T> source, int index, int pageSize, int? totalCount = null, string searchQuery = null, string sortColumn = null, string sortDirection = null)
+            : this(source.AsQueryable(), index, pageSize, totalCount, searchQuery  ,   sortColumn ,   sortDirection)
+        {
+        }
+        public PagedList(IQueryable<T> source, int index, int pageSize, int? totalCount = null)
+            : this(source.AsQueryable(), index, pageSize, totalCount, null, null, null)
+        {
+        }
+
 		public PagedList(IEnumerable<T> source, int index, int pageSize, int? totalCount = null)
-			: this(source.AsQueryable(), index, pageSize, totalCount)
+            : this(source.AsQueryable(), index, pageSize, totalCount, null, null, null)
 		{
 		}
 
-		public PagedList(IQueryable<T> source, int index, int pageSize, int? totalCount = null)
+        public PagedList(IQueryable<T> source, int index, int pageSize, int? totalCount = null, string searchQuery = null, string sortColumn = null, string sortDirection = null)
 		{
 			if (index < 0)
 				throw new ArgumentOutOfRangeException("index", "Value can not be below 0.");
@@ -22,7 +33,7 @@ namespace MvcPaging
 				source = new List<T>().AsQueryable();
 
 			var realTotalCount = source.Count();
-
+            SearchString = searchQuery;
 			PageSize = pageSize;
 			PageIndex = index;
 			TotalItemCount = totalCount.HasValue ? totalCount.Value : realTotalCount;
@@ -51,8 +62,9 @@ namespace MvcPaging
 
 		public int PageCount { get; private set; }
 		public int TotalItemCount { get; private set; }
-		public int PageIndex { get; private set; }
-		public int PageNumber { get { return PageIndex + 1; } }
+        public int PageIndex { get; private set; }
+        public int PageNumber { get { return PageIndex + 1; } }
+        public string SearchString { get;   set; }
 		public int PageSize { get; private set; }
 		public bool HasPreviousPage { get; private set; }
 		public bool HasNextPage { get; private set; }

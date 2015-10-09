@@ -48,9 +48,9 @@ namespace MvcPaging
 
 		#region IEnumerable<T> extensions
 
-		public static IPagedList<T> ToPagedList<T>(this IEnumerable<T> source, int pageIndex, int pageSize, int? totalCount = null)
+        public static IPagedList<T> ToPagedList<T>(this IEnumerable<T> source, int pageIndex, int pageSize, int? totalCount = null, string searchQuery = null, string sortColumn = null, string sortDirection = null)
 		{
-			return new PagedList<T>(source, pageIndex, pageSize, totalCount);
+            return new PagedList<T>(source, pageIndex, pageSize, totalCount, searchQuery, sortColumn, sortDirection);
 		}
 
 		#endregion
