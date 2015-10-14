@@ -66,7 +66,8 @@ namespace MvcPaging.Demo.Controllers
 		public ActionResult IndexAjax()
 		{
 			int currentPageIndex = 0;
-			var products = this.allProducts.ToPagedList(currentPageIndex, DefaultPageSize);
+            var products = this.allProducts.ToPagedList(currentPageIndex, DefaultPageSize);
+            products.SearchString = string.Empty;
 			return View(products);
 		}
 

@@ -1,9 +1,18 @@
 ﻿@model IPagedList<MvcPaging.Demo.Models.Product>
 
 <div class="search">
-    <input type="text" placeholder="search" id="SearchString" value="@Model.SearchString"  />
 
-    <a   id="Search" value="search" data-ajax="true" data-ajax-begin="beginPaging" data-ajax-success="successPaging" data-ajax-update="#gridcontainer" data-ajax-mode="replace" data-href="/Paging/AjaxPage?page=1&search="  >search</a>
+
+    @using (Ajax.BeginForm("AjaxPage", "Paging",
+    new AjaxOptions {  UpdateTargetId = "gridcontainer", HttpMethod = "GET", InsertionMode = InsertionMode.Replace} ))
+    {
+        <fieldset>  
+            <input type="text" placeholder="search" name="search" value="@Model.SearchString" /> 
+            <input type="submit" value="Submit" />
+        </fieldset>
+    }
+     
+
 
 </div>
 <table class="grid">
@@ -38,13 +47,7 @@
 
 <script type="text/javascript">
 
-    $(function() {
-        $('#Search').click(function () {
-            var searchTerm = $('#SearchString').val();
-            var href = $(this).attr('data-href') + searchTerm;
-            $(this).attr('href', href); 
-        });
-    });
+
 
     function beginPaging(args) {
         // Animate
