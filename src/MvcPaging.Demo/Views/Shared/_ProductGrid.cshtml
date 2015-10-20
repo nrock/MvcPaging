@@ -4,7 +4,14 @@
 
 
     @using (Ajax.BeginForm("AjaxPage", "Paging",
-    new AjaxOptions {  UpdateTargetId = "gridcontainer", HttpMethod = "GET", InsertionMode = InsertionMode.Replace} ))
+    new AjaxOptions
+    {
+        UpdateTargetId = "gridcontainer",
+        OnBegin = "blockGrid",
+        OnSuccess = "unblockGrid",
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace
+    }))
     {
         <fieldset>  
             <input type="text" placeholder="search" name="search" value="@Model.SearchString" /> 
@@ -35,8 +42,8 @@
 <div class="pager">
     @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount, Model.SearchString, string.Empty, string.Empty, new AjaxOptions
     {
-        OnBegin = "beginPaging",
-        OnSuccess = "successPaging",
+        OnBegin = "blockGrid",
+        OnSuccess = "unblockGrid",
         UpdateTargetId = "gridcontainer"
     }).Options(o => o.Action("AjaxPage"))
 
@@ -45,23 +52,12 @@
 </div>
 
 
-<script type="text/javascript">
-
-
-
-    function beginPaging(args) {
-        // Animate
+<script type="text/javascript"> 
+    function blockGrid(args) { 
         $('#gridcontainer').block({ message: null });
-    }
-
-    function successPaging() {
-        // Animate
+    } 
+    function unblockGrid() { 
         $('#gridcontainer').unblock(); 
-    }
-
-    function failurePaging() {
-        alert("Could not retrieve list.");
-    }
-
+    }  
 </script>
 

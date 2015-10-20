@@ -211,26 +211,12 @@ namespace MvcPaging
 		{
 			var viewContext = this.htmlHelper.ViewContext;
 			var routeDataValues = viewContext.RequestContext.RouteData.Values;
-			RouteValueDictionary pageLinkValueDictionary;
+			RouteValueDictionary  pageLinkValueDictionary = new RouteValueDictionary(this.pagerOptions.RouteValues)
+		    {
+		        {this.pagerOptions.PageRouteValueKey, pageNumber},
+		        {"search", searchString}
+		    };
 
-			// Avoid canonical errors when pageNumber is equal to 1.
-			if (pageNumber == 1 && !this.pagerOptions.AlwaysAddFirstPageNumber)
-			{
-				pageLinkValueDictionary = new RouteValueDictionary(this.pagerOptions.RouteValues);
-
-				if (routeDataValues.ContainsKey(this.pagerOptions.PageRouteValueKey))
-				{
-					routeDataValues.Remove(this.pagerOptions.PageRouteValueKey);
-				}
-			}
-			else
-			{
-                pageLinkValueDictionary = new RouteValueDictionary(this.pagerOptions.RouteValues)
-                {
-                    { this.pagerOptions.PageRouteValueKey, pageNumber }, 
-                    { "search",   searchString }
-                };
-			}
 
 			// To be sure we get the right route, ensure the controller and action are specified.
 			if (!pageLinkValueDictionary.ContainsKey("controller") && routeDataValues.ContainsKey("controller"))
